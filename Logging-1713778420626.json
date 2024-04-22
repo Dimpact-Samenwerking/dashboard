@@ -1,0 +1,1009 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 249,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 28,
+      "panels": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 1
+          },
+          "id": 29,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": true,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "{app=\"loki\"} | logfmt | level=\"warning\" or level=\"error\" |~ \"$search\"",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Error/warning Loki",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 1
+          },
+          "id": 31,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": true,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "{app=\"grafana\"} | logfmt | level=\"warning\" or level=\"error\" |~ \"$search\"",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Error/warning Promtail",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 10
+          },
+          "id": 32,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": true,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "{app=\"prometheus\"} | logfmt | level=\"warning\" or level=\"error\" |~ \"$search\"",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Error/warning Prometheus",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 10
+          },
+          "id": 30,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": true,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "{app=\"promtail\"} | logfmt | level=\"warning\" or level=\"error\" |~ \"$search\"",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Error/warning Promtail",
+          "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 19
+          },
+          "id": 33,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": true,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "{app=\"ingress-appgw\"} | logfmt | level=\"warning\" or level=\"error\" |~ \"$search\"",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Error/warning Ingress app gateway",
+          "type": "logs"
+        }
+      ],
+      "title": "Error/warning componenten",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 0,
+        "y": 1
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "count_over_time({namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\", stream=\"stderr\"} |= `` [$__auto])",
+          "legendFormat": "{{app}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Totale logs error",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 11,
+        "y": 1
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "count_over_time({namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\", stream=\"stdout\"} |= `` [$__auto])",
+          "legendFormat": "{{app}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Totale logs output",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Alle logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 26,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Logs",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Succesvolle logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 8,
+      "maxDataPoints": "",
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\", stream=\"stdout\"}\r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "STDOUT",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Error logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 11,
+      "maxDataPoints": "",
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\", stream=\"stderr\"}\r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "STDERR",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 12,
+      "panels": [],
+      "title": "HTTP 2x (Success)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 42
+      },
+      "id": 13,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*`  \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1\\\" 2\\\\d{2}\" \r\n|~ \"$search\"",
+          "queryType": "range",
+          "refId": "B"
+        }
+      ],
+      "title": "Requests met HTTP 2x code",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "id": 14,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n!~ \"HTTP/1.1 2\\\\d{2}\" !~ \"HTTP/1.1\\\" 2\\\\d{2}\" \r\n|~ `$search`",
+          "queryType": "range",
+          "refId": "B"
+        }
+      ],
+      "title": "Requests zonder alle HTTP 2x codes",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 49
+      },
+      "id": 15,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n!~ \"HTTP/1.1 20\\\\d{1}\" !~\"GET /_health/ HTTP/1.1\\\" 200 2\" \r\n|~ `$search`",
+          "queryType": "range",
+          "refId": "B"
+        }
+      ],
+      "title": "Requests zonder HTTP 200 2 codes",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 56
+      },
+      "id": 16,
+      "panels": [],
+      "title": "HTTP 3x (Redirection)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 57
+      },
+      "id": 17,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1\\\" 3\\\\d{2}\" \r\n|~ `$search`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Requests met HTTP 3x codes",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "id": 18,
+      "panels": [],
+      "title": "HTTP 4x (Client errors)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 65
+      },
+      "id": 19,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", app=~\"$app\", pod=~\"$pod\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1 4\\\\d{2}\" \r\n|~ `$search`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Requests met HTTP 4x codes",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 72
+      },
+      "id": 20,
+      "panels": [],
+      "title": "HTTP 5x (Server errors)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 73
+      },
+      "id": 22,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{namespace=~\"$namespace\", app=~\"$app\", pod=~\"$pod\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1 4\\\\d{2}\" \r\n|~ `$search`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Requests met HTTP 5x codes",
+      "type": "logs"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "monitoring",
+          "value": "monitoring"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "namespace",
+        "options": [],
+        "query": {
+          "label": "namespace",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "app",
+        "options": [],
+        "query": {
+          "label": "app",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{namespace=~\"$namespace\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "pod",
+        "options": [],
+        "query": {
+          "label": "pod",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{namespace=~\"$namespace\", app=~\"$app\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "container",
+        "options": [],
+        "query": {
+          "label": "container",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{namespace=~\"$namespace\", app=~\"$app\", pod=~\"$pod\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "name": "search",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "datasource": {
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
+        },
+        "filters": [],
+        "hide": 0,
+        "name": "filter",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Logging",
+  "uid": "e970a83d-adc2-4d33-af93-2349c0b77e533",
+  "version": 3,
+  "weekStart": ""
+}
