@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
+  "id": 35,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -29,6 +29,792 @@
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 41,
+      "panels": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "Total  Count of log lines in the specified time range",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "rgb(31, 255, 7)",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "rgb(31, 255, 7)"
+                  },
+                  {
+                    "color": "rgb(31, 255, 7)",
+                    "value": 10
+                  },
+                  {
+                    "color": "rgb(31, 255, 7)",
+                    "value": 50
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 12,
+            "x": 0,
+            "y": 9
+          },
+          "id": 39,
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"} )[$__interval]))",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Totate logs",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "Total Count: of $search in the specified time range",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "rgb(222, 15, 43)",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "rgb(222, 15, 43)"
+                  },
+                  {
+                    "color": "rgb(222, 15, 43)",
+                    "value": 10
+                  },
+                  {
+                    "color": "rgb(222, 15, 43)",
+                    "value": 50
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 12,
+            "x": 12,
+            "y": 9
+          },
+          "id": 40,
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"}  |~ \"(?i)$search\")[$__interval]))",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Totale logs: of $search",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 7,
+            "x": 0,
+            "y": 12
+          },
+          "id": 42,
+          "maxDataPoints": 100,
+          "options": {
+            "legend": {
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true,
+              "values": [
+                "value"
+              ]
+            },
+            "pieType": "pie",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "7.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"})[$__interval])) by (stream)",
+              "legendFormat": "{{stream}}",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Totaal stderr / stdout pie chart",
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 7,
+            "y": 12
+          },
+          "id": 43,
+          "interval": "1m",
+          "maxDataPoints": "",
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "pieType": "pie",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "6.4.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"} |~ \"$search\")[$__interval])) by (app)",
+              "legendFormat": "{{app}}",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Matched woord: \"$search\" donut chart",
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "#299c46",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "max": 100,
+              "min": 0,
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "#299c46"
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 10
+                  },
+                  {
+                    "color": "#C4162A",
+                    "value": 50
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 5,
+            "x": 19,
+            "y": 12
+          },
+          "id": 44,
+          "maxDataPoints": 100,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "sizing": "auto"
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"} |~ \"(?i)$search\")[$__interval])) * 100 / sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"})[$__interval]))",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "\"$search\" percentage voor specifieke tijd range",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Totaal",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 3,
+                "pointSize": 1,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 19
+          },
+          "id": 45,
+          "interval": "1m",
+          "maxDataPoints": "",
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "9.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"} |~ \"$search\")[$__interval])) by (app)",
+              "legendFormat": "{{app}}",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Matched woord: \"$search\" historisch",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 1,
+                "scaleDistribution": {
+                  "log": 10,
+                  "type": "log"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 19
+          },
+          "id": 46,
+          "maxDataPoints": 100,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "9.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(({app=~\"$app\", stream=~\"$stream\"} |~ \"$search\")[30s])) by (app)",
+              "legendFormat": "{{app}}",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "\"$search\" rate per app",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 40,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 1,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "always",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "{stream=\"stderr\"} stderr"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#C4162A",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "{stream=\"stdout\"} stdout"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#56A64B",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.lineWidth",
+                    "value": 2
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 28
+          },
+          "id": 47,
+          "maxDataPoints": 100,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "pluginVersion": "9.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({app=~\"$app\", stream=~\"$stream\"})[$__interval])) by (stream)",
+              "legendFormat": "{{stream}}",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Totaal stderr / stdout historisch",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Logs visueel",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Alle logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 48,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": true,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Logs",
+      "type": "logs"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
       },
       "id": 28,
       "panels": [
@@ -42,7 +828,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 1
+            "y": 11
           },
           "id": 38,
           "options": {
@@ -80,7 +866,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 1
+            "y": 11
           },
           "id": 30,
           "options": {
@@ -118,7 +904,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 10
+            "y": 20
           },
           "id": 29,
           "options": {
@@ -156,7 +942,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 10
+            "y": 20
           },
           "id": 37,
           "options": {
@@ -194,7 +980,7 @@
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 19
+            "y": 29
           },
           "id": 32,
           "options": {
@@ -232,7 +1018,7 @@
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 19
+            "y": 29
           },
           "id": 33,
           "options": {
@@ -259,174 +1045,57 @@
           ],
           "title": "Error/warning Ingress app gateway",
           "type": "logs"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 17,
+            "w": 24,
+            "x": 0,
+            "y": 38
+          },
+          "id": 26,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": true,
+            "showCommonLabels": true,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "pluginVersion": "10.1.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "loki"
+              },
+              "editorMode": "code",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Logs",
+          "type": "logs"
         }
       ],
       "title": "Error/warning componenten",
       "type": "row"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 1
-      },
-      "id": 4,
-      "panels": [],
-      "title": "Alle logs",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 19,
-        "w": 23,
-        "x": 0,
-        "y": 2
-      },
-      "id": 26,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": true,
-        "showCommonLabels": true,
-        "showLabels": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": true
-      },
-      "pluginVersion": "10.1.5",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "loki"
-          },
-          "editorMode": "code",
-          "expr": "{app=~\"$app\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Logs",
-      "type": "logs"
-    },
-    {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
-      },
-      "id": 6,
-      "panels": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "loki"
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 3
-          },
-          "id": 8,
-          "maxDataPoints": "",
-          "options": {
-            "dedupStrategy": "none",
-            "enableLogDetails": true,
-            "prettifyLogMessage": true,
-            "showCommonLabels": true,
-            "showLabels": true,
-            "showTime": true,
-            "sortOrder": "Descending",
-            "wrapLogMessage": true
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "loki"
-              },
-              "editorMode": "code",
-              "expr": "{app=~\"$app\",stream=\"stdout\"}\r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "STDOUT",
-          "type": "logs"
-        }
-      ],
-      "title": "Succesvolle logs",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 22
-      },
-      "id": 9,
-      "panels": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "loki"
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 4
-          },
-          "id": 11,
-          "maxDataPoints": "",
-          "options": {
-            "dedupStrategy": "none",
-            "enableLogDetails": true,
-            "prettifyLogMessage": true,
-            "showCommonLabels": true,
-            "showLabels": true,
-            "showTime": true,
-            "sortOrder": "Descending",
-            "wrapLogMessage": true
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "loki"
-              },
-              "editorMode": "code",
-              "expr": "{app=~\"$app\", stream=\"stderr\"}\r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"$search\"",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "STDERR",
-          "type": "logs"
-        }
-      ],
-      "title": "Error logs",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 23
+        "y": 12
       },
       "id": 12,
       "panels": [
@@ -439,7 +1108,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 5
+            "y": 75
           },
           "id": 13,
           "options": {
@@ -459,7 +1128,7 @@
                 "uid": "loki"
               },
               "editorMode": "code",
-              "expr": "{app=~\"$app\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*`  \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1\\\" 2\\\\d{2}\" \r\n|~ \"$search\"",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*`  \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1\\\" 2\\\\d{2}\" \r\n|~ \"$search\"",
               "queryType": "range",
               "refId": "B"
             }
@@ -476,7 +1145,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 5
+            "y": 75
           },
           "id": 14,
           "options": {
@@ -496,7 +1165,7 @@
                 "uid": "loki"
               },
               "editorMode": "code",
-              "expr": "{app=~\"$app\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n!~ \"HTTP/1.1 2\\\\d{2}\" !~ \"HTTP/1.1\\\" 2\\\\d{2}\"  !~ \"statusCode=200\"\r\n|~ `$search`",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n!~ \"HTTP/1.1 2\\\\d{2}\" !~ \"HTTP/1.1\\\" 2\\\\d{2}\"  !~ \"statusCode=200\"\r\n|~ `$search`",
               "queryType": "range",
               "refId": "B"
             }
@@ -513,7 +1182,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 12
+            "y": 82
           },
           "id": 15,
           "options": {
@@ -533,7 +1202,7 @@
                 "uid": "loki"
               },
               "editorMode": "code",
-              "expr": "{namespace=~\"$namespace\", pod=~\"$pod\", app=~\"$app\", container=~\"$container\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n!~ \"HTTP/1.1 20\\\\d{1}\" !~\"GET /_health/ HTTP/1.1\\\" 200 2\" \r\n|~ `$search`",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n!~ \"HTTP/1.1 20\\\\d{1}\" !~\"GET /_health/ HTTP/1.1\\\" 200 2\" \r\n|~ `$search`",
               "queryType": "range",
               "refId": "B"
             }
@@ -551,7 +1220,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 13
       },
       "id": 16,
       "panels": [
@@ -564,7 +1233,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 6
+            "y": 76
           },
           "id": 17,
           "options": {
@@ -584,7 +1253,7 @@
                 "uid": "loki"
               },
               "editorMode": "code",
-              "expr": "{app=~\"$app\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1\\\" 3\\\\d{2}\" \r\n|~ `$search`",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1\\\" 3\\\\d{2}\" \r\n|~ `$search`",
               "queryType": "range",
               "refId": "A"
             }
@@ -602,7 +1271,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 14
       },
       "id": 18,
       "panels": [
@@ -615,7 +1284,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 7
+            "y": 84
           },
           "id": 19,
           "options": {
@@ -635,7 +1304,7 @@
                 "uid": "loki"
               },
               "editorMode": "code",
-              "expr": "{app=~\"$app\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1 4\\\\d{2}\" \r\n|~ `$search`",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1 4\\\\d{2}\" \r\n|~ `$search`",
               "queryType": "range",
               "refId": "A"
             }
@@ -653,7 +1322,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 15
       },
       "id": 20,
       "panels": [
@@ -666,7 +1335,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 8
+            "y": 85
           },
           "id": 22,
           "options": {
@@ -686,7 +1355,7 @@
                 "uid": "loki"
               },
               "editorMode": "code",
-              "expr": "{app=~\"$app\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1 5\\\\d{2}\" \r\n|~ `$search`",
+              "expr": "{app=~\"$app\", stream=~\"$stream\"} \r\n| regexp `.*HTTP\\/1.1\" (?P<http_code>\\d+) \\d+.*` \r\n| regexp `.*(?P<public_ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b) .*`\r\n| regexp `.*(?P<ip_address>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b):(?P<port>\\d+).*`\r\n| regexp `.*\"(?P<http_method>\\b(?:GET|PUT|POST|DELETE|PATCH)\\b) (?P<url>\\/[^\"]*) HTTP/1.1\" .*`\r\n| regexp `.*\"(?P<website>https?://[^\"]+).*` \r\n| regexp `.*\" \\d+ (?P<size>\\d+) .*` \r\n| regexp `.*\" \\d+ (?P<response_time>\\d+\\.\\d+) .*`\r\n|~ \"HTTP/1.1 5\\\\d{2}\" \r\n|~ `$search`",
               "queryType": "range",
               "refId": "A"
             }
@@ -717,6 +1386,7 @@
         "definition": "",
         "hide": 0,
         "includeAll": true,
+        "label": "applicatie",
         "multi": false,
         "name": "app",
         "options": [],
@@ -735,10 +1405,39 @@
       {
         "current": {
           "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "stream",
+        "options": [],
+        "query": {
+          "label": "stream",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{app=~\"$app\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
           "text": "",
           "value": ""
         },
         "hide": 0,
+        "label": "zoeken",
         "name": "search",
         "options": [
           {
@@ -764,7 +1463,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "1.1",
           "value": "1.1"
         },
@@ -790,7 +1489,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Logging",
-  "uid": "e970a83d-adc2-4d33-af93-2349c0b77e5333",
-  "version": 2,
+  "uid": "e970a83d-adc2-4d33-af93-2349c0b77e53333",
+  "version": 1,
   "weekStart": ""
 }
