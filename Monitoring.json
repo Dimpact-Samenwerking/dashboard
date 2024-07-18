@@ -37,10 +37,6 @@
               {
                 "color": "transparent",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
@@ -50,7 +46,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 23,
+        "w": 24,
         "x": 0,
         "y": 0
       },
@@ -60,6 +56,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -71,7 +68,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -81,7 +78,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "grafana_stat_totals_dashboard_versions",
+          "expr": "grafana_stat_totals_dashboard",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -97,12 +94,1192 @@
       "type": "stat"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 3
+      },
+      "id": 60,
+      "panels": [],
+      "title": "Helm charts",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "semi-dark-red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "blue",
+                      "value": 2
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "Deployed"
+                      },
+                      "-1": {
+                        "color": "dark-red",
+                        "index": 1,
+                        "text": "Failed"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "appVersion"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "App Version"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "release"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 219
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tijd"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 215
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "chart"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 203
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "version"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 133
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 172
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 62,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "chart"
+          }
+        ]
+      },
+      "pluginVersion": "11.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "min(helm_chart_info{chart=~\"$chart\", namespace=~\"$namespace2\", release=~\"$release\", appVersion=~\"$appVersion\", version=~\"$version\", revision=~\"$revision\"}) by (chart, release, namespace, version, appVersion, revision) != 2",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Helm charts",
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 51,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Tijd"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "time: YYYY-MM-DD HH:mm:ss"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 200
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "shades"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Metric"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "transparent"
+                        },
+                        {},
+                        {
+                          "color": "#EAB839"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Deployment"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "thresholds"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-green"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Status aantal replicas"
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "color": "dark-red",
+                            "index": 0,
+                            "text": "Geen replicas beschikbaar"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 13
+          },
+          "id": 52,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Status aantal replicas"
+              }
+            ]
+          },
+          "pluginVersion": "11.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "kube_deployment_status_replicas_available{deployment=~\"$deployment\"}",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{deployment}}",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Deployments",
+          "transformations": [
+            {
+              "id": "seriesToRows",
+              "options": {
+                "reducers": []
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Tijd"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "time: YYYY-MM-DD HH:mm:ss"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 200
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "shades"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Metric"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "transparent"
+                        },
+                        {},
+                        {
+                          "color": "#EAB839"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Deployment"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "thresholds"
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "StatefulSet"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-green"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Status aantal replicas"
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "color": "dark-red",
+                            "index": 0,
+                            "text": "Replicas niet beschikbaar"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 21
+          },
+          "id": 54,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Status aantal replicas"
+              }
+            ]
+          },
+          "pluginVersion": "11.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "kube_statefulset_status_replicas_available{deployment=~\"$deployment\"}",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{ statefulset}}",
+              "refId": "A"
+            }
+          ],
+          "title": "StatefulSets",
+          "transformations": [
+            {
+              "id": "seriesToRows",
+              "options": {
+                "reducers": []
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Tijd"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "time: YYYY-MM-DD HH:mm:ss"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 200
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "shades"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Metric"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "transparent"
+                        },
+                        {},
+                        {
+                          "color": "#EAB839"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Deployment"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "thresholds"
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "ReplicaSet"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-green"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Status aantal replicas"
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "color": "dark-red",
+                            "index": 0,
+                            "text": "Replicas niet beschikbaar"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 29
+          },
+          "id": 57,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Status aantal replicas"
+              }
+            ]
+          },
+          "pluginVersion": "11.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "disableTextWrap": false,
+              "editorMode": "builder",
+              "expr": "kube_replicaset_status_ready_replicas",
+              "format": "time_series",
+              "fullMetaSearch": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{replicaset}}",
+              "refId": "A",
+              "useBackend": false
+            }
+          ],
+          "title": "ReplicaSets",
+          "transformations": [
+            {
+              "id": "seriesToRows",
+              "options": {
+                "reducers": []
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Tijd"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "time: YYYY-MM-DD HH:mm:ss"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 200
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "shades"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Metric"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "transparent"
+                        },
+                        {},
+                        {
+                          "color": "#EAB839"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Deployment"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "thresholds"
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "DaemonSet"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "custom.align"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-green"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "displayName",
+                    "value": "Status aantal pods"
+                  },
+                  {
+                    "id": "custom.width"
+                  },
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "color": "dark-red",
+                            "index": 0,
+                            "text": "Pods niet beschikbaar"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 37
+          },
+          "id": 58,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Status aantal pods"
+              }
+            ]
+          },
+          "pluginVersion": "10.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "disableTextWrap": false,
+              "editorMode": "builder",
+              "expr": "kube_daemonset_status_number_ready{deployment=~\"$deployment\"}",
+              "format": "time_series",
+              "fullMetaSearch": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{daemonset}}",
+              "refId": "A",
+              "useBackend": false
+            }
+          ],
+          "title": "DaemonSets",
+          "transformations": [
+            {
+              "id": "seriesToRows",
+              "options": {
+                "reducers": []
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Deployments",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
       },
       "id": 23,
       "panels": [
@@ -161,7 +1338,7 @@
             "h": 4,
             "w": 23,
             "x": 0,
-            "y": 4
+            "y": 14
           },
           "id": 25,
           "options": {
@@ -182,7 +1359,7 @@
               }
             ]
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -252,7 +1429,7 @@
             "h": 5,
             "w": 4,
             "x": 0,
-            "y": 8
+            "y": 18
           },
           "id": 26,
           "options": {
@@ -264,7 +1441,7 @@
             "content": "<div class=\"text-center\">\n  <img style=\"height:80px\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png\">\n  <h2 style=\"padding-top:20px\">$k8s_version</h2>\n</div>",
             "mode": "html"
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -304,7 +1481,7 @@
             "h": 5,
             "w": 4,
             "x": 4,
-            "y": 8
+            "y": 18
           },
           "id": 31,
           "options": {
@@ -312,6 +1489,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "last"
@@ -324,7 +1502,7 @@
             "textMode": "name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -372,7 +1550,7 @@
             "h": 5,
             "w": 4,
             "x": 8,
-            "y": 8
+            "y": 18
           },
           "id": 22,
           "options": {
@@ -380,6 +1558,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "last"
@@ -392,7 +1571,7 @@
             "textMode": "name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -436,7 +1615,7 @@
             "h": 5,
             "w": 4,
             "x": 12,
-            "y": 8
+            "y": 18
           },
           "id": 41,
           "options": {
@@ -444,6 +1623,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "last"
@@ -456,7 +1636,7 @@
             "textMode": "name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -508,7 +1688,7 @@
             "h": 5,
             "w": 4,
             "x": 16,
-            "y": 8
+            "y": 18
           },
           "id": 30,
           "options": {
@@ -516,6 +1696,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -527,7 +1708,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -551,6 +1732,72 @@
           ],
           "title": "Node Ubuntu OS Version",
           "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 4,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "transparent"
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 20,
+            "y": 18
+          },
+          "id": 59,
+          "interval": "",
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "/^version$/",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "loki_build_info",
+              "format": "table",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Loki Version",
+          "type": "stat"
         }
       ],
       "title": "Versienummers componenten",
@@ -562,7 +1809,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 23
       },
       "id": 36,
       "panels": [
@@ -577,7 +1824,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 5
+            "y": 15
           },
           "id": 35,
           "limit": "100",
@@ -644,7 +1891,7 @@
             "h": 4,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 21
           },
           "id": 45,
           "options": {
@@ -652,6 +1899,7 @@
             "graphMode": "area",
             "justifyMode": "center",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -664,7 +1912,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -740,7 +1988,7 @@
             "h": 2,
             "w": 8,
             "x": 0,
-            "y": 15
+            "y": 25
           },
           "id": 28,
           "options": {
@@ -748,6 +1996,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "vertical",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -760,7 +2009,7 @@
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -819,7 +2068,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-green"
+                    "color": "green"
                   },
                   {
                     "color": "dark-orange",
@@ -835,7 +2084,7 @@
             "h": 2,
             "w": 8,
             "x": 8,
-            "y": 15
+            "y": 25
           },
           "id": 27,
           "options": {
@@ -843,6 +2092,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "vertical",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -855,7 +2105,7 @@
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -926,7 +2176,7 @@
             "h": 2,
             "w": 8,
             "x": 16,
-            "y": 15
+            "y": 25
           },
           "id": 29,
           "options": {
@@ -934,6 +2184,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "vertical",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -946,7 +2197,7 @@
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1001,7 +2252,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 17
+            "y": 27
           },
           "id": 43,
           "options": {
@@ -1009,6 +2260,7 @@
             "graphMode": "area",
             "justifyMode": "center",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1021,7 +2273,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1060,7 +2312,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-green"
+                    "color": "green"
                   },
                   {
                     "color": "dark-orange",
@@ -1076,7 +2328,7 @@
             "h": 5,
             "w": 8,
             "x": 8,
-            "y": 17
+            "y": 27
           },
           "id": 42,
           "options": {
@@ -1084,6 +2336,7 @@
             "graphMode": "area",
             "justifyMode": "center",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1096,7 +2349,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1147,7 +2400,7 @@
             "h": 5,
             "w": 8,
             "x": 16,
-            "y": 17
+            "y": 27
           },
           "id": 44,
           "options": {
@@ -1155,6 +2408,7 @@
             "graphMode": "area",
             "justifyMode": "center",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1167,7 +2421,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1200,7 +2454,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 24
       },
       "id": 37,
       "panels": [
@@ -1231,7 +2485,7 @@
             "h": 10,
             "w": 5,
             "x": 0,
-            "y": 6
+            "y": 16
           },
           "id": 38,
           "maxDataPoints": 3,
@@ -1330,7 +2584,7 @@
             "h": 10,
             "w": 5,
             "x": 5,
-            "y": 6
+            "y": 16
           },
           "id": 39,
           "maxDataPoints": 3,
@@ -1403,7 +2657,7 @@
             "h": 10,
             "w": 7,
             "x": 10,
-            "y": 6
+            "y": 16
           },
           "id": 40,
           "maxDataPoints": 3,
@@ -1473,7 +2727,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 25
       },
       "id": 4,
       "panels": [
@@ -1516,7 +2770,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 7
+            "y": 17
           },
           "id": 21,
           "options": {
@@ -1524,6 +2778,7 @@
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1535,7 +2790,7 @@
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1582,7 +2837,7 @@
             "h": 5,
             "w": 4,
             "x": 8,
-            "y": 7
+            "y": 17
           },
           "id": 32,
           "interval": "1m",
@@ -1591,6 +2846,7 @@
             "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1602,7 +2858,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1646,7 +2902,7 @@
             "h": 5,
             "w": 4,
             "x": 12,
-            "y": 7
+            "y": 17
           },
           "id": 34,
           "interval": "1m",
@@ -1655,6 +2911,7 @@
             "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1666,7 +2923,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1710,7 +2967,7 @@
             "h": 5,
             "w": 4,
             "x": 16,
-            "y": 7
+            "y": 17
           },
           "id": 33,
           "interval": "1m",
@@ -1719,6 +2976,7 @@
             "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -1730,7 +2988,7 @@
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1754,7 +3012,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 26
       },
       "id": 8,
       "panels": [
@@ -1919,7 +3177,7 @@
             "h": 9,
             "w": 11,
             "x": 0,
-            "y": 8
+            "y": 18
           },
           "id": 9,
           "options": {
@@ -1940,7 +3198,7 @@
               }
             ]
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.1.0",
           "targets": [
             {
               "datasource": {
@@ -1975,7 +3233,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 27
       },
       "id": 5,
       "panels": [],
@@ -1990,37 +3248,58 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "fixedColor": "red",
+            "mode": "fixed"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "index": 0,
+                  "text": "0"
+                }
+              },
+              "type": "special"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
+                "color": "green"
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "noValue",
+                "value": "0"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 9
+        "y": 28
       },
-      "id": 47,
+      "id": 50,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2029,10 +3308,11 @@
           "values": false
         },
         "showPercentChange": false,
+        "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -2040,8 +3320,11 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "count(probe_success{job=\"$job\", group=~'$group', group!~\"Services\",subgroup=~\"$subgroup\", instance=~'$instance'})",
-          "range": true,
+          "hide": false,
+          "instant": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -2075,8 +3358,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2100,7 +3382,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 9
+        "y": 28
       },
       "id": 46,
       "options": {
@@ -2108,6 +3390,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2120,7 +3403,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -2161,8 +3444,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2228,8 +3510,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-red",
-                      "value": null
+                      "color": "semi-dark-red"
                     },
                     {
                       "color": "semi-dark-green",
@@ -2285,8 +3566,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-red",
-                      "value": null
+                      "color": "semi-dark-red"
                     },
                     {
                       "color": "semi-dark-green",
@@ -2324,8 +3604,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-red",
-                      "value": null
+                      "color": "semi-dark-red"
                     },
                     {
                       "color": "orange",
@@ -2359,7 +3638,7 @@
               },
               {
                 "id": "displayName",
-                "value": "SSL validiteit (dagen)"
+                "value": "SSL verloopt over minder dan $list_threshold (dagen)"
               },
               {
                 "id": "custom.width",
@@ -2383,8 +3662,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "transparent",
-                      "value": null
+                      "color": "transparent"
                     },
                     {
                       "color": "semi-dark-green",
@@ -2426,8 +3704,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-green",
-                      "value": null
+                      "color": "semi-dark-green"
                     },
                     {
                       "color": "semi-dark-yellow",
@@ -2489,8 +3766,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "semi-dark-green",
-                      "value": null
+                      "color": "semi-dark-green"
                     },
                     {
                       "color": "semi-dark-yellow",
@@ -2579,8 +3855,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -2611,8 +3886,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -2650,8 +3924,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -2689,8 +3962,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -2728,8 +4000,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -2750,6 +4021,30 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 50 (dagen)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 303
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 730 (dagen)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 332
+              }
+            ]
           }
         ]
       },
@@ -2757,7 +4052,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 31
       },
       "id": 48,
       "options": {
@@ -2773,12 +4068,12 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": false,
-            "displayName": "TLS versie"
+            "desc": true,
+            "displayName": "SSL verloopt over minder dan 365 (dagen)"
           }
         ]
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -2814,7 +4109,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(probe_ssl_earliest_cert_expiry{job=\"$job\", group=~'$group', group!~\"Services\",subgroup=~\"$subgroup\", instance=~'$instance'} - time()) / 3600 / 24",
+          "expr": "sort(((probe_ssl_earliest_cert_expiry{job=\"$job\", group=~'$group', group!~\"Services\",subgroup=~\"$subgroup\", instance=~'$instance'}- time()) / 84600) < $list_threshold)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -2977,7 +4272,7 @@
           "refId": "N"
         }
       ],
-      "title": "Overview",
+      "title": "Certificaten",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -3163,8 +4458,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3228,8 +4522,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "rgba(245, 54, 54, 0.9)",
-                      "value": null
+                      "color": "rgba(245, 54, 54, 0.9)"
                     },
                     {
                       "color": "#C4162A",
@@ -3302,8 +4595,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "rgba(245, 54, 54, 0.9)",
-                      "value": null
+                      "color": "rgba(245, 54, 54, 0.9)"
                     }
                   ]
                 }
@@ -3358,8 +4650,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "dark-green",
-                      "value": null
+                      "color": "dark-green"
                     }
                   ]
                 }
@@ -3420,12 +4711,8 @@
                 "value": "SSL Cert Expiry"
               },
               {
-                "id": "unit",
-                "value": "s"
-              },
-              {
                 "id": "decimals",
-                "value": 2
+                "value": 0
               },
               {
                 "id": "custom.cellOptions",
@@ -3439,32 +4726,49 @@
                 "value": "auto"
               },
               {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "#C4162A",
-                      "value": null
-                    },
-                    {
-                      "color": "#FA6400",
-                      "value": 1209600
-                    },
-                    {
-                      "color": "dark-green",
-                      "value": 4320000
-                    }
-                  ]
-                }
-              },
-              {
                 "id": "custom.width",
                 "value": 203
               },
               {
                 "id": "displayName",
-                "value": "Validiteit SSL"
+                "value": "SSL verloopt over minder dan $list_threshold dagen"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "max",
+                "value": 365
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "semi-dark-red"
+                    },
+                    {
+                      "color": "orange",
+                      "value": 1
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 7
+                    },
+                    {
+                      "color": "semi-dark-green",
+                      "value": 24
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -3565,6 +4869,66 @@
                 "value": false
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 50 (dagen)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 334
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 50 dagen"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 380
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 60 dagen"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 730 dagen"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 348
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSL verloopt over minder dan 90 dagen"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 361
+              }
+            ]
           }
         ]
       },
@@ -3572,7 +4936,7 @@
         "h": 12,
         "w": 18,
         "x": 0,
-        "y": 21
+        "y": 40
       },
       "id": 6,
       "options": {
@@ -3589,11 +4953,11 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "SSL Cert Expiry"
+            "displayName": "SSL verloopt over minder dan 365 dagen"
           }
         ]
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -3643,11 +5007,13 @@
             "uid": "$database"
           },
           "editorMode": "code",
-          "expr": "probe_ssl_earliest_cert_expiry{job=\"$job\", group=~'$group', group!~\"Services\",subgroup=~\"$subgroup\", instance=~'$instance'}-time()",
+          "exemplar": false,
+          "expr": "sort(((probe_ssl_earliest_cert_expiry{job=\"$job\", group=~'$group', group!~\"Services\",subgroup=~\"$subgroup\", instance=~'$instance'}- time()) / 84600) < $list_threshold)",
           "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": "",
+          "range": false,
           "refId": "D"
         }
       ],
@@ -3661,9 +5027,176 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 52
+      },
+      "id": 55,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Because of a missing feature in Grafana, critical and warning thresholds from dashboard variables will not affect coloration of the Time Left column in this table.\n\nThresholds are to be set manually in the Overrides settings for this widget.\n\nPlease vote or contribute to issue : https://github.com/grafana/grafana/issues/922",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time Left"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 200
+                  },
+                  {
+                    "id": "custom.filterable",
+                    "value": false
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "gradient",
+                      "type": "color-background"
+                    }
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-red"
+                        },
+                        {
+                          "color": "red",
+                          "value": 0
+                        },
+                        {
+                          "color": "yellow",
+                          "value": 7
+                        },
+                        {
+                          "color": "green",
+                          "value": 28
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "unit",
+                    "value": "d"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 12,
+            "x": 0,
+            "y": 44
+          },
+          "id": 56,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "sort(((x509_cert_not_after{secret_name!=\"\"} - time()) / 86400) < $list_threshold)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "queryType": "randomWalk",
+              "refId": "A"
+            }
+          ],
+          "title": "Kubernetes Secrets (time left < $list_threshold days)",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "pattern": "^(subject_CN|secret_namespace|secret_name|Value)$"
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {
+                  "Value": 3,
+                  "secret_name": 2,
+                  "secret_namespace": 1,
+                  "subject_CN": 0
+                },
+                "renameByName": {
+                  "Value": "Time Left",
+                  "secret_name": "Secret Name",
+                  "secret_namespace": "Secret Namespace",
+                  "subject_CN": "Subject CN"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Certificaten in Cluster",
+      "type": "row"
     }
   ],
-  "refresh": "1m",
+  "refresh": "5m",
   "schemaVersion": 39,
   "tags": [
     "blackbox",
@@ -3841,8 +5374,8 @@
       {
         "current": {
           "selected": false,
-          "text": "20.76.126.71:443",
-          "value": "20.76.126.71:443"
+          "text": "51.138.82.255:443",
+          "value": "51.138.82.255:443"
         },
         "datasource": {
           "type": "prometheus",
@@ -3869,10 +5402,9 @@
       },
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "lab1",
+          "value": "lab1"
         },
         "datasource": {
           "type": "prometheus",
@@ -3898,9 +5430,10 @@
       },
       {
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "lab1",
-          "value": "lab1"
+          "text": "None",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
@@ -3926,10 +5459,9 @@
       },
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "elasticsearch-data-kiss-es-default-0",
+          "value": "elasticsearch-data-kiss-es-default-0"
         },
         "datasource": {
           "type": "prometheus",
@@ -3983,8 +5515,8 @@
       {
         "current": {
           "selected": false,
-          "text": "v1.27.9",
-          "value": "v1.27.9"
+          "text": "v1.29.4",
+          "value": "v1.29.4"
         },
         "datasource": {
           "type": "prometheus",
@@ -4010,22 +5542,114 @@
       {
         "current": {
           "selected": true,
-          "text": "1.1",
-          "value": "1.1"
+          "text": ".*",
+          "value": ".*"
         },
-        "description": "",
-        "hide": 0,
-        "name": "Versie_dashboard",
+        "hide": 2,
+        "name": "deployment",
         "options": [
           {
             "selected": true,
-            "text": "1.1",
-            "value": "1.1"
+            "text": ".*",
+            "value": ".*"
           }
         ],
-        "query": "1.1",
+        "query": ".*",
         "skipUrlSync": false,
         "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "365",
+          "value": "365"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Certificaten die verlopen over minder dan (dagen)",
+        "multi": false,
+        "name": "list_threshold",
+        "options": [
+          {
+            "selected": false,
+            "text": "1",
+            "value": "1"
+          },
+          {
+            "selected": false,
+            "text": "7",
+            "value": "7"
+          },
+          {
+            "selected": false,
+            "text": "15",
+            "value": "15"
+          },
+          {
+            "selected": false,
+            "text": "30",
+            "value": "30"
+          },
+          {
+            "selected": false,
+            "text": "50",
+            "value": "50"
+          },
+          {
+            "selected": false,
+            "text": "60",
+            "value": "60"
+          },
+          {
+            "selected": false,
+            "text": "90",
+            "value": "90"
+          },
+          {
+            "selected": false,
+            "text": "180",
+            "value": "180"
+          },
+          {
+            "selected": true,
+            "text": "365",
+            "value": "365"
+          },
+          {
+            "selected": false,
+            "text": "730",
+            "value": "730"
+          },
+          {
+            "selected": false,
+            "text": "1095",
+            "value": "1095"
+          },
+          {
+            "selected": false,
+            "text": "1460",
+            "value": "1460"
+          },
+          {
+            "selected": false,
+            "text": "1825",
+            "value": "1825"
+          },
+          {
+            "selected": false,
+            "text": "3650",
+            "value": "3650"
+          },
+          {
+            "selected": false,
+            "text": "7300",
+            "value": "7300"
+          }
+        ],
+        "query": "1,7,15,30,50,60,90,180,365,730,1095,1460,1825,3650,7300",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
       },
       {
         "datasource": {
@@ -4039,26 +5663,26 @@
         "type": "adhoc"
       },
       {
-        "auto": true,
+        "auto": false,
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "auto",
-          "value": "$__auto_interval_Interval"
+          "text": "5m",
+          "value": "5m"
         },
         "hide": 0,
         "name": "Interval",
         "options": [
           {
-            "selected": true,
-            "text": "auto",
-            "value": "$__auto_interval_Interval"
-          },
-          {
             "selected": false,
             "text": "1m",
             "value": "1m"
+          },
+          {
+            "selected": true,
+            "text": "5m",
+            "value": "5m"
           },
           {
             "selected": false,
@@ -4106,22 +5730,204 @@
             "value": "30d"
           }
         ],
-        "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "query": "1m,5m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
         "queryValue": "",
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(helm_chart_info,chart)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "chart",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(helm_chart_info,chart)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(helm_chart_info,appVersion)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "appVersion",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(helm_chart_info,appVersion)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(helm_chart_info,version)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "version",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(helm_chart_info,version)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(helm_chart_info,release)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "release",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(helm_chart_info,release)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(helm_chart_info,revision)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "revision",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(helm_chart_info,revision)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(helm_chart_info,namespace)",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "namespace2",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(helm_chart_info,namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "1.1",
+          "value": "1.1"
+        },
+        "description": "",
+        "hide": 0,
+        "name": "versie_dashboard",
+        "options": [
+          {
+            "selected": true,
+            "text": "1.1",
+            "value": "1.1"
+          }
+        ],
+        "query": "1.1",
+        "skipUrlSync": false,
+        "type": "textbox"
       }
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Monitoring",
-  "uid": "NEzutrbMkkkhh",
-  "version": 7,
+  "uid": "NEzutrbMkkkhhh",
+  "version": 15,
   "weekStart": ""
 }
