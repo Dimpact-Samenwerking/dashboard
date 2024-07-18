@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 36,
+  "id": 41,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -494,7 +494,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1351,7 +1352,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Metrics",
-  "uid": "e970a83d-adc2-4d33-af93-2349c0b77e533333",
-  "version": 2,
+  "uid": "e970a83d-adc2-4d33-af93-2349c0b77e533",
+  "version": 1,
   "weekStart": ""
 }
